@@ -21,7 +21,7 @@ stages:
         jdkVersion: '17'
         mavenVersion: 3.3.9
         commands:
-          - 'echo "VERSION=$(git rev-parse --short HEAD)-$(date +''%Y%m%d-%H%M%S'')" >> $GITEE_PARAMS'
+          - 'echo "BUILD_ARTIFACT=$(git rev-parse --short HEAD)-$(date +'%Y%m%d-%H%M%S')" >> $GITEE_PARAMS
 
       - step: build@maven
         name: build_maven_2
@@ -43,7 +43,6 @@ stages:
           - '# 使用场景：如需手工指定settings.xml，可使用如下方式'
           - '# 注意事项：如无需自定义settings配置且需要私有依赖仓库，可在该任务配置《私有仓库》处添加私有依赖'
           - '# mvn -U clean package -s ./settings.xml'
-          - 'echo "BUILD_ARTIFACT=$(git rev-parse --short HEAD)-$(date +''%Y%m%d-%H%M%S'')" >> $GITEE_PARAMS' 
         artifacts:
           - name: BUILD_ARTIFACT
             path:

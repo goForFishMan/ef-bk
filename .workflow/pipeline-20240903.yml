@@ -57,10 +57,10 @@ stages:
     trigger: auto
     steps:
       - step: publish@release_artifacts
-        name: publish_release_artifact
+        name: publish_release_artifacts
         displayName: 发布
         dependArtifact: output
-        autoIncrement: true
+        autoIncrement: true 
         notify: []
         strategy:
           retry: '0'

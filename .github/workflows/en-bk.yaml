@@ -9,20 +9,27 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v3
+
       - name: setup java
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'corretto'
           cache: 'maven'
+          
+      - name: Generate Version Number
+        id: version
+        run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
       - name: Build Maven Project
         run: |
           mvn clean install
+
           # 步骤：上传 ZIP 构件
       - name: Upload file
         uses: actions/upload-artifact@v3
         with:
-          name: project
+          name: "ef-bk-${{ env.VERSION }}"
           retention-days: 90
           path: |
             agileboot-admin/target/*

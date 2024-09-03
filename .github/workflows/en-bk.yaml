@@ -18,4 +18,12 @@ jobs:
       - name: Build Maven Project
         run: |
           mvn clean install
+          # 步骤：上传 ZIP 构件
+      - name: Upload file
+        uses: actions/upload-artifact@v3
+        with:
+          name: project
+          retention-days: 90
+          path: |
+            agileboot-admin/target/*
 

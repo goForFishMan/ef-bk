@@ -1,5 +1,5 @@
 name: gitee-go-maven                   # 流水线唯一标识，定义一个唯一 ID 标识为 gitee-go-maven，名称为 “Maven-流水线示例” 的流水线
-displayName: 'Maven-流水线示例'          # 流水线名字
+displayName: 'Maven-流水线示例测试'          # 流水线名字
 triggers:                              # 流水线触发器配置，支持通过 push 事件触发构建
   push:                                # 通过 push方式触发
     - matchType: PRECISE               # matchType

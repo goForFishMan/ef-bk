@@ -1,0 +1,21 @@
+{
+	"scripts": {
+		"prepare": "husky install",
+		"commit": "git cz"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-git"
+		}
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.8.1",
+		"@commitlint/config-conventional": "^17.8.1",
+		"commitizen": "^4.3.0",
+		"cz-git": "^1.9.4",
+		"husky": "^8.0.3"
+	},
+	"dependencies": {
+		"conventional-changelog-cli": "^5.0.0"
+	}
+}

@@ -15,10 +15,6 @@ stages:
     executor:
       - zheng-keshuang
     steps:
-      - step: init@maven
-        name: init_env
-        displayName: 初始化变量
-    
       - step: build@maven
         name: build_maven
         displayName: Maven 构建

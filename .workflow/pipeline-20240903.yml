@@ -9,7 +9,7 @@ triggers:
         - 'main'
 stages:
   - name: stage-30923758
-    displayName: 未命名1
+    displayName: 构建
     strategy: naturally
     trigger: auto
     executor:
@@ -46,8 +46,21 @@ stages:
         strategy:
           retry: '0'
       - step: publish@general_artifacts
-        name: publish_general_artifact_1
+        name: publish_general_artifact
         displayName: 发布构件
         dependArtifact: BUILD_ARTIFACT
         artifactName: output
         dependsOn: build_maven_1
+  - name: release
+    displayName: 发布
+    strategy: naturally
+    trigger: auto
+    steps:
+      - step: publish@release_artifacts
+        name: publish_release_artifact
+        displayName: 发布
+        dependArtifact: output
+        autoIncrement: true
+        notify: []
+        strategy:
+          retry: '0'

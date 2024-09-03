@@ -1,48 +1,23 @@
-version: '1.0'
-name: pipeline-20240903
-displayName: pipeline-20240903
-triggers:
-  trigger: auto
-  push:
-    branches:
-      prefix:
-        - ''
-stages:
-  - name: stage-30923758
-    displayName: 未命名
-    strategy: naturally
-    trigger: auto
-    executor:
-      - zheng-keshuang
-    steps:
-      - step: build@maven
-        name: build_maven
-        displayName: Maven 构建
-        jdkVersion: '17'
-        mavenVersion: 3.3.9
-        commands:
-          - '# 功能：打包'
-          - '# 参数说明：'
-          - '#    -Dmaven.test.skip=true：跳过单元测试'
-          - '#    -U：每次构建检查依赖更新，可避免缓存中快照版本依赖不更新问题，但会牺牲部分性能'
-          - '#    -e -X ：打印调试信息，定位疑难构建问题时建议使用此参数构建'
-          - '#    -B：以batch模式运行，可避免日志打印时出现ArrayIndexOutOfBoundsException异常'
-          - '# 使用场景：打包项目且不需要执行单元测试时使用'
-          - ./mvnw clean install
-          - ls -al
-          - ''
-          - '# 功能：自定义settings配置'
-          - '# 使用场景：如需手工指定settings.xml，可使用如下方式'
-          - '# 注意事项：如无需自定义settings配置且需要私有依赖仓库，可在该任务配置《私有仓库》处添加私有依赖'
-          - '# mvn -U clean package -s ./settings.xml'
-          - ''
-        artifacts:
-          - name: BUILD_ARTIFACT
-            path:
-              - ./target
-        settings: []
-        caches:
-          - ~/.m2
-        notify: []
-        strategy:
-          retry: '0'
+name: gitee-go-maven                   # 流水线唯一标识，定义一个唯一 ID 标识为 gitee-go-maven，名称为 “Maven-流水线示例” 的流水线
+displayName: 'Maven-流水线示例'          # 流水线名字
+triggers:                              # 流水线触发器配置，支持通过 push 事件触发构建
+  push:                                # 通过 push方式触发
+    - matchType: PRECISE               # matchType
+      branch: main                   # 触发分支名（值为字符串），目前为当前所在分支名，暂不支持跨分支触发
+commitMessage: ''                      # 通过匹配当前提交的 CommitMessage 决定是否执行流水线
+stages:                                # 构建阶段配置
+  - stage:                             # 单个构建阶段
+      name: maven-build-stage          # 构建阶段唯一标识
+      displayName: 'Maven Stage'       # 构建阶段名称
+      failFast: false                  # 允许快速失败，即当 Stage 中有任务失败时，直接结束整个 Stage
+      steps:                           # 构建步骤配置
+        - step: mavenbuild@1           # 构建步骤的任务类型(枚举类型)，用于决定使用什么构建环境。目前不支持自定义。当前示例为采用 Maven 编译环境
+          name: maven-build            # 构建步骤唯一标识，当前示例中定义了一个标识为 maven-build 的构建步骤
+          displayName: 'Maven Step'    # 构建步骤名称当前示例中定义了一个名为 “Maven Step” 的构建步骤
+          inputs:                      # 构建输入参数设定
+            # mavenPomFile: 'pom.xml'    # pom文件位置，非必填项
+            jdkVersion: 17              # 语言版本，指定 JDK 环境版本为 1.8
+            mavenVersion: 3.6          # 工具版本，指定 Maven 环境版本为 3.6
+            goals: |                   # 构建脚本，当前示例中使用 Maven 命令初始化、构建一个 Maven 工程并执行输出内容
+              ./mvnw clean install
+              ls -al

@@ -16,10 +16,10 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
           cache: 'maven'
-          
+
       - name: Generate Version Number
         id: version
-        run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        run: echo "VERSION=$(git rev-parse --short HEAD)-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Build Maven Project
         run: |

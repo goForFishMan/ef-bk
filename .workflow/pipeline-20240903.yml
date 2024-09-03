@@ -9,7 +9,7 @@ triggers:
         - 'main'
 stages:
   - name: stage-30923758
-    displayName: 未命名
+    displayName: 未命名1
     strategy: naturally
     trigger: auto
     executor:

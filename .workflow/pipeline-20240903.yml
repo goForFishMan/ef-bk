@@ -15,11 +15,10 @@ stages:
     executor:
       - zheng-keshuang
     steps:
-      - step: init@env
+      - step: init@maven
         name: init_env
         displayName: 初始化变量
-        commands:
-          - echo "VERSION=$(git rev-parse --short HEAD)-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+    
       - step: build@maven
         name: build_maven
         displayName: Maven 构建
@@ -33,6 +32,7 @@ stages:
           - '#    -e -X ：打印调试信息，定位疑难构建问题时建议使用此参数构建'
           - '#    -B：以batch模式运行，可避免日志打印时出现ArrayIndexOutOfBoundsException异常'
           - '# 使用场景：打包项目且不需要执行单元测试时使用'
+          - echo "VERSION=$(git rev-parse --short HEAD)-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
           - mvn clean install
           - ls -al
           - 

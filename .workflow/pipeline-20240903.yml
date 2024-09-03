@@ -38,7 +38,7 @@ stages:
         artifacts:
           - name: BUILD_ARTIFACT
             path:
-              - ./target
+              - ./agileboot-admin/target
         settings: []
         caches:
           - ~/.m2

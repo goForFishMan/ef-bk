@@ -15,8 +15,8 @@ stages:
     executor:
       - zheng-keshuang
     steps:
-      - step: build@maven
-        name: build_maven
+      - step: 初始化变量
+        name: init_env
         displayName: Maven 构建
         commands:
           - echo "VERSION=$(git rev-parse --short HEAD)-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV

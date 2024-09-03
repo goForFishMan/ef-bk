@@ -18,6 +18,11 @@ stages:
       - step: build@maven
         name: build_maven
         displayName: Maven 构建
+        commands:
+          - echo "VERSION=$(git rev-parse --short HEAD)-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+      - step: build@maven
+        name: build_maven
+        displayName: Maven 构建
         jdkVersion: '17'
         mavenVersion: 3.3.9
         commands:
@@ -30,6 +35,7 @@ stages:
           - '# 使用场景：打包项目且不需要执行单元测试时使用'
           - mvn clean install
           - ls -al
+          - 
           - ''
           - '# 功能：自定义settings配置'
           - '# 使用场景：如需手工指定settings.xml，可使用如下方式'
@@ -37,7 +43,7 @@ stages:
           - '# mvn -U clean package -s ./settings.xml'
           - ''
         artifacts:
-          - name: BUILD_ARTIFACT
+          - name: "ef-bk-${{ env.VERSION }}"
             path:
               - ./agileboot-admin/target
         settings: []
